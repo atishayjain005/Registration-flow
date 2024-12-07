@@ -1,5 +1,5 @@
 import React from 'react';
-// import styles from './Step1.module.css';
+import styles from './Step1.module.css';
 import { useFormContext } from '../../../contexts/FormContext';
 
 const Step1 = () => {

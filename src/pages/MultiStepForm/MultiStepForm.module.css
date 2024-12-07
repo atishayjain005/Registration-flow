@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    max-width: 1000px;
+    margin: 2rem auto;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .sidebar {
+    flex: 1;
+    background-color: var(--marine-blue);
+    padding: 2rem;
+    color: var(--white);
+  }
+  
+  .content {
+    flex: 3;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      margin: 1rem;
+    }
+  
+    .sidebar {
+      flex: none;
+      text-align: center;
+      padding: 1.5rem;
+    }
+  
+    .content {
+      padding: 1.5rem;
+    }
+  }
+  

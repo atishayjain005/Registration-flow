@@ -1,17 +1,16 @@
 import React from 'react';
-import Sidebar from '../components/FormSteps/Sidebar/Sidebar';
-import Step1 from '../components/FormSteps/Step1/Step1';
-import Step2 from '../components/FormSteps/Step2/Step2';
-import Step3 from '../components/FormSteps/Step3/Step3';
-import Step4 from '../components/FormSteps/Step4/Step4';
-import Final from '../components/FormSteps/Final/Final';
-import { useFormContext } from '../contexts/FormContext';
+import Sidebar from '../../components/FormSteps/Sidebar/Sidebar';
+import { useFormContext } from '../../contexts/FormContext';
+import Step1 from '../../components/FormSteps/Step1/Step1';
+import Step2 from '../../components/FormSteps/Step2/Step2';
+import Step3 from '../../components/FormSteps/Step3/Step3';
+import Step4 from '../../components/FormSteps/Step4/Step4';
+import Final from '../../components/FormSteps/Final/Final';
 import styles from './MultiStepForm.module.css';
 
 const MultiStepForm = () => {
   const { currentStep } = useFormContext();
 
-  // Dynamically render the current step
   const renderStep = () => {
     switch (currentStep) {
       case 1:
@@ -31,7 +30,9 @@ const MultiStepForm = () => {
 
   return (
     <div className={styles.container}>
-      <Sidebar currentStep={currentStep} />
+      <div className={styles.sidebar}>
+        <Sidebar currentStep={currentStep} />
+      </div>
       <div className={styles.content}>
         {renderStep()}
       </div>
