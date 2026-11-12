@@ -1,3 +1,4 @@
+import { plans } from '../../../data/catalog';
 import { useState } from 'react';
 import styles from './Step2.module.css';
 import { useFormContext } from '../../../contexts/FormContext';
@@ -12,11 +13,7 @@ const Step2 = () => {
     setError('');
   };
 
-  const plans = [
-    { name: 'Arcade', monthly: 9, yearly: 90 },
-    { name: 'Advanced', monthly: 12, yearly: 120 },
-    { name: 'Pro', monthly: 15, yearly: 150 },
-  ];
+
 
   return (
     <div className={styles.container}>

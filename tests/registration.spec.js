@@ -47,3 +47,24 @@ test('requires a plan and preserves billing changes across navigation', async ({
   await page.getByRole('button', { name: 'Next Step' }).click();
   await expect(page.getByRole('heading', { name: 'Arcade (monthly)' })).toBeVisible();
 });
+
+test('reviews prices, completes the demo, and clears details on restart', async ({ page }) => {
+  await page.goto('/');
+  await enterDetails(page);
+  await page.getByRole('radio', { name: /Advanced/ }).check();
+  await page.getByRole('checkbox', { name: 'Yearly billing' }).check();
+  await page.getByRole('button', { name: 'Next Step' }).click();
+  await page.getByRole('checkbox', { name: /Online service/ }).check();
+  await page.getByRole('button', { name: 'Next Step' }).click();
+  await expect(page.getByText('Total: $121/yr', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Go Back' }).click();
+  await page.getByRole('checkbox', { name: /Online service/ }).uncheck();
+  await page.getByRole('button', { name: 'Next Step' }).click();
+  await expect(page.getByText('Total: $120/yr', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Confirm', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Demo complete' })).toBeVisible();
+  await page.getByRole('button', { name: 'Start again' }).click();
+  await expect(page.getByRole('textbox', { name: 'Name', exact: true })).toHaveValue('');
+  await expect(page.getByRole('textbox', { name: 'Email Address' })).toHaveValue('');
+  await expect(page.getByRole('textbox', { name: 'Phone Number' })).toHaveValue('');
+});

@@ -25,16 +25,22 @@ export const FormProvider = ({ children }) => {
   };
 
   const goToNextStep = () => {
-    setCurrentStep((prev) => prev + 1);
+    setCurrentStep((prev) => Math.min(prev + 1, 5));
   };
 
   const goToPreviousStep = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 
+  const resetForm = () => {
+    setFormData({ name: '', email: '', phone: '', plan: '', planType: 'monthly', addons: [] });
+    setCurrentStep(1);
+  };
+
   return (
     <FormContext.Provider
       value={{
+        resetForm,
         formData,
         updateFormData,
         currentStep,
