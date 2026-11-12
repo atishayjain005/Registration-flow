@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Sidebar.module.css';
 
 const Sidebar = ({ currentStep }) => {
@@ -25,3 +25,5 @@ const Sidebar = ({ currentStep }) => {
 };
 
 export default Sidebar;
+
+Sidebar.propTypes = { currentStep: PropTypes.number.isRequired };

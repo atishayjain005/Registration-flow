@@ -1,4 +1,3 @@
-import React from 'react';
 import Sidebar from '../../components/FormSteps/Sidebar/Sidebar';
 import { useFormContext } from '../../contexts/FormContext';
 import Step1 from '../../components/FormSteps/Step1/Step1';

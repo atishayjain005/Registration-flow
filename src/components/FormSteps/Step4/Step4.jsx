@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Step4.module.css';
 import { useFormContext } from '../../../contexts/FormContext';
 

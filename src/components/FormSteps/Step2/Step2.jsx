@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './Step2.module.css';
 import { useFormContext } from '../../../contexts/FormContext';
 
