@@ -68,3 +68,24 @@ test('reviews prices, completes the demo, and clears details on restart', async 
   await expect(page.getByRole('textbox', { name: 'Email Address' })).toHaveValue('');
   await expect(page.getByRole('textbox', { name: 'Phone Number' })).toHaveValue('');
 });
+
+test('supports keyboard plan selection and narrow layouts through completion', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.goto('/');
+  const noOverflow = async () => expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await noOverflow();
+  await enterDetails(page);
+  await expect(page.getByRole('heading', { name: 'Select your plan' })).toBeFocused();
+  const arcade = page.getByRole('radio', { name: /Arcade/ });
+  await arcade.focus();
+  await arcade.press('Space');
+  await expect(arcade).toBeChecked();
+  await noOverflow();
+  await page.getByRole('button', { name: 'Next Step' }).click();
+  await noOverflow();
+  await page.getByRole('button', { name: 'Next Step' }).click();
+  await noOverflow();
+  await page.getByRole('button', { name: 'Confirm', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Demo complete' })).toBeFocused();
+  await noOverflow();
+});

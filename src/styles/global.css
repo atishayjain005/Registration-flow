@@ -16,3 +16,9 @@ body {
   background-color: var(--alabaster);
   color: var(--marine-blue);
 }
+
+*, *::before, *::after { box-sizing: border-box; }
+button, input { font: inherit; }
+button { min-height: 44px; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--purplish-blue); outline-offset: 4px; }
+h2:focus { outline: none; }
