@@ -22,3 +22,28 @@ test('rejects empty and malformed details, then accepts keyboard submission', as
   await page.getByRole('textbox', { name: 'Phone Number' }).press('Enter');
   await expect(page.getByRole('heading', { name: 'Select your plan' })).toBeVisible();
 });
+async function enterDetails(page) {
+  await page.getByRole('textbox', { name: 'Name', exact: true }).fill('Demo Tester');
+  await page.getByRole('textbox', { name: 'Email Address' }).fill('demo@example.com');
+  await page.getByRole('textbox', { name: 'Phone Number' }).fill('+1 202 555 0100');
+  await page.getByRole('button', { name: 'Next Step' }).click();
+}
+
+
+test('requires a plan and preserves billing changes across navigation', async ({ page }) => {
+  await page.goto('/');
+  await enterDetails(page);
+  await page.getByRole('button', { name: 'Next Step' }).click();
+  await expect(page.getByRole('alert')).toHaveText('Choose a plan to continue.');
+  await page.getByRole('radio', { name: /Arcade/ }).check();
+  await page.getByRole('checkbox', { name: 'Yearly billing' }).check();
+  await expect(page.getByText('$90/yr', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Next Step' }).click();
+  await page.getByRole('button', { name: 'Go Back' }).click();
+  await expect(page.getByRole('checkbox', { name: 'Yearly billing' })).toBeChecked();
+  await expect(page.getByRole('radio', { name: /Arcade/ })).toBeChecked();
+  await page.getByRole('checkbox', { name: 'Yearly billing' }).uncheck();
+  await page.getByRole('button', { name: 'Next Step' }).click();
+  await page.getByRole('button', { name: 'Next Step' }).click();
+  await expect(page.getByRole('heading', { name: 'Arcade (monthly)' })).toBeVisible();
+});

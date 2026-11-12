@@ -11,6 +11,7 @@ export const FormProvider = ({ children }) => {
     email: '',
     phone: '',
     plan: '',
+    planType: 'monthly',
     addons: [],
   });
 
