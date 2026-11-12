@@ -1,21 +1,19 @@
-import React, { useState } from 'react';
+import { plans } from '../../../data/catalog';
+import { useState } from 'react';
 import styles from './Step2.module.css';
 import { useFormContext } from '../../../contexts/FormContext';
 
 const Step2 = () => {
   const { formData, updateFormData, goToNextStep, goToPreviousStep } = useFormContext();
-  const [isYearly, setIsYearly] = useState(formData.planType === 'yearly');
+  const isYearly = formData.planType === 'yearly';
+  const [error, setError] = useState('');
 
   const handlePlanSelect = (plan) => {
     updateFormData('plan', plan);
-    updateFormData('planType', isYearly ? 'yearly' : 'monthly');
+    setError('');
   };
 
-  const plans = [
-    { name: 'Arcade', monthly: 9, yearly: 90 },
-    { name: 'Advanced', monthly: 12, yearly: 120 },
-    { name: 'Pro', monthly: 15, yearly: 150 },
-  ];
+
 
   return (
     <div className={styles.container}>
@@ -23,28 +21,33 @@ const Step2 = () => {
       <p className={styles.description}>
         You have the option of monthly or yearly billing.
       </p>
-      <div className={styles.plans}>
+      <fieldset className={styles.plans} aria-describedby={error ? 'plan-error' : undefined}>
+        <legend>Available plans</legend>
         {plans.map((plan) => (
-          <div
+          <label
             key={plan.name}
-            onClick={() => handlePlanSelect(plan.name)}
             className={`${styles.planCard} ${
               formData.plan === plan.name ? styles.selected : ''
             }`}
           >
-            <h3>{plan.name}</h3>
+            <input type="radio" name="plan" value={plan.name}
+              checked={formData.plan === plan.name}
+              onChange={() => handlePlanSelect(plan.name)} />
+            <span>{plan.name}</span>
             <p>
               ${isYearly ? plan.yearly : plan.monthly}/{isYearly ? 'yr' : 'mo'}
             </p>
-          </div>
+          </label>
         ))}
-      </div>
+      </fieldset>
+      {error && <p id="plan-error" role="alert">{error}</p>}
       <div className={styles.billingToggle}>
         <span className={!isYearly ? styles.active : ''}>Monthly</span>
         <input
           type="checkbox"
+          aria-label="Yearly billing"
           checked={isYearly}
-          onChange={() => setIsYearly((prev) => !prev)}
+          onChange={(event) => updateFormData('planType', event.target.checked ? 'yearly' : 'monthly')}
         />
         <span className={isYearly ? styles.active : ''}>Yearly</span>
       </div>
@@ -52,7 +55,7 @@ const Step2 = () => {
         <button type="button" onClick={goToPreviousStep} className={styles.backButton}>
           Go Back
         </button>
-        <button type="button" onClick={goToNextStep} className={styles.nextButton}>
+        <button type="button" onClick={() => formData.plan ? goToNextStep() : setError('Choose a plan to continue.')} className={styles.nextButton}>
           Next Step
         </button>
       </div>

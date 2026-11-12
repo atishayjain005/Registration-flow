@@ -1,15 +1,11 @@
-import React from 'react';
+import { addons } from '../../../data/catalog';
 import styles from './Step3.module.css';
 import { useFormContext } from '../../../contexts/FormContext';
 
 const Step3 = () => {
   const { formData, updateFormData, goToNextStep, goToPreviousStep } = useFormContext();
 
-  const addons = [
-    { name: 'Online service', description: 'Access to multiplayer games', price: 1 },
-    { name: 'Larger storage', description: 'Extra 1TB of cloud save', price: 2 },
-    { name: 'Customizable profile', description: 'Custom theme on your profile', price: 2 },
-  ];
+
 
   const handleAddonToggle = (addon) => {
     const newAddons = formData.addons.includes(addon)

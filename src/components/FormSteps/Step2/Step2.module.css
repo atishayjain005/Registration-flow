@@ -1,25 +1,25 @@
 .container {
     padding: 2rem;
   }
-  
+
   .title {
     font-size: 1.5rem;
     color: var(--marine-blue);
     margin-bottom: 1rem;
   }
-  
+
   .description {
     color: var(--cool-gray);
     font-size: 1rem;
     margin-bottom: 2rem;
   }
-  
+
   .plans {
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
   }
-  
+
   .planCard {
     flex: 1;
     border: 1px solid var(--light-gray);
@@ -28,43 +28,43 @@
     text-align: center;
     cursor: pointer;
   }
-  
+
   .planCard:hover {
     border-color: var(--marine-blue);
   }
-  
+
   .planCard.selected {
     border-color: var(--marine-blue);
     background-color: var(--magnolia);
   }
-  
+
   .billingToggle {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
   }
-  
+
   .billingToggle input {
     accent-color: var(--marine-blue);
   }
-  
+
   .billingToggle span {
     font-size: 0.875rem;
     color: var(--cool-gray);
   }
-  
+
   .billingToggle span.active {
     font-weight: 700;
     color: var(--marine-blue);
   }
-  
+
   .navigation {
     display: flex;
     justify-content: space-between;
     margin-top: 2rem;
   }
-  
+
   .backButton,
   .nextButton {
     background-color: var(--marine-blue);
@@ -76,12 +76,23 @@
     border-radius: 4px;
     cursor: pointer;
   }
-  
+
   .backButton {
     background-color: var(--cool-gray);
   }
-  
+
   .nextButton:hover {
     background-color: var(--purplish-blue);
   }
-  
+
+.plans { border: 0; padding: 0; min-width: 0; }
+.plans legend { margin-bottom: 0.75rem; }
+.planCard { min-width: 0; }
+.planCard input { margin-right: 0.5rem; }
+.planCard:focus-within { outline: 3px solid var(--purplish-blue); outline-offset: 2px; }
+@media (max-width: 480px) {
+  .plans { flex-direction: column; }
+  .planCard { text-align: left; }
+  .planCard p { margin: 0.5rem 0 0; }
+  .navigation { gap: 0.5rem; flex-wrap: wrap; }
+}

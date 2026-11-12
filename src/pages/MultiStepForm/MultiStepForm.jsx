@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useRef } from 'react';
 import Sidebar from '../../components/FormSteps/Sidebar/Sidebar';
 import { useFormContext } from '../../contexts/FormContext';
 import Step1 from '../../components/FormSteps/Step1/Step1';
@@ -10,6 +10,12 @@ import styles from './MultiStepForm.module.css';
 
 const MultiStepForm = () => {
   const { currentStep } = useFormContext();
+  const contentRef = useRef(null);
+  useEffect(() => {
+    const heading = contentRef.current?.querySelector('h2');
+    heading?.setAttribute('tabindex', '-1');
+    heading?.focus();
+  }, [currentStep]);
 
   const renderStep = () => {
     switch (currentStep) {
@@ -29,14 +35,14 @@ const MultiStepForm = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <main className={styles.container} aria-label="Registration demo">
       <div className={styles.sidebar}>
         <Sidebar currentStep={currentStep} />
       </div>
-      <div className={styles.content}>
+      <div ref={contentRef} className={styles.content}>
         {renderStep()}
       </div>
-    </div>
+    </main>
   );
 };
 

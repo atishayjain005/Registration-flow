@@ -1,13 +1,14 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Sidebar.module.css';
 
 const Sidebar = ({ currentStep }) => {
   const steps = ['Your Info', 'Select Plan', 'Add-Ons', 'Summary'];
 
   return (
-    <div className={styles.sidebar}>
+    <ol className={styles.sidebar} aria-label="Registration progress">
       {steps.map((step, index) => (
-        <div
+        <li
+          aria-current={currentStep === index + 1 ? 'step' : undefined}
           key={index}
           className={`${styles.step} ${currentStep === index + 1 ? styles.active : ''}`}
         >
@@ -18,10 +19,12 @@ const Sidebar = ({ currentStep }) => {
             <span>STEP {index + 1}</span>
             <h4>{step}</h4>
           </div>
-        </div>
+        </li>
       ))}
-    </div>
+    </ol>
   );
 };
 
 export default Sidebar;
+
+Sidebar.propTypes = { currentStep: PropTypes.number.isRequired };

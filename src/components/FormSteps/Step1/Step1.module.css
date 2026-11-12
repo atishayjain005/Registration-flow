@@ -1,32 +1,32 @@
 .container {
     padding: 2rem;
   }
-  
+
   .title {
     font-size: 1.5rem;
     color: var(--marine-blue);
     margin-bottom: 1rem;
   }
-  
+
   .description {
     color: var(--cool-gray);
     font-size: 1rem;
     margin-bottom: 2rem;
   }
-  
+
   .form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
   }
-  
+
   .label {
     font-size: 0.875rem;
     color: var(--marine-blue);
     font-weight: 500;
     margin-bottom: 0.5rem;
   }
-  
+
   .input {
     width: 100%;
     padding: 0.75rem;
@@ -34,7 +34,7 @@
     border-radius: 4px;
     font-size: 1rem;
   }
-  
+
   .nextButton {
     background-color: var(--marine-blue);
     color: var(--white);
@@ -46,8 +46,10 @@
     cursor: pointer;
     margin-top: 1rem;
   }
-  
+
   .nextButton:hover {
     background-color: var(--purplish-blue);
   }
-  
+
+.error { color: #a32035; margin: 0.4rem 0 0; }
+.input[aria-invalid="true"] { border-color: #a32035; }

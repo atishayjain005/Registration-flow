@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
+import PropTypes from 'prop-types';
+import { createContext, useContext, useState } from 'react';
 
 // Create the context
 const FormContext = createContext();
@@ -10,6 +11,7 @@ export const FormProvider = ({ children }) => {
     email: '',
     phone: '',
     plan: '',
+    planType: 'monthly',
     addons: [],
   });
 
@@ -23,16 +25,22 @@ export const FormProvider = ({ children }) => {
   };
 
   const goToNextStep = () => {
-    setCurrentStep((prev) => prev + 1);
+    setCurrentStep((prev) => Math.min(prev + 1, 5));
   };
 
   const goToPreviousStep = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 
+  const resetForm = () => {
+    setFormData({ name: '', email: '', phone: '', plan: '', planType: 'monthly', addons: [] });
+    setCurrentStep(1);
+  };
+
   return (
     <FormContext.Provider
       value={{
+        resetForm,
         formData,
         updateFormData,
         currentStep,
@@ -53,3 +61,5 @@ export const useFormContext = () => {
   }
   return context;
 };
+
+FormProvider.propTypes = { children: PropTypes.node.isRequired };
